@@ -58,3 +58,12 @@ body {
   white-space: nowrap;
   border-width: 0;
 }
+
+@keyframes sponsor-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
