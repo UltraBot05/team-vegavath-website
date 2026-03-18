@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { RacingCursor } from "@/components/layout/RacingCursor";
+import { CursorToggle } from "@/components/layout/CursorToggle";
 import { getAllSettings } from "@/lib/services/settings";
 
 const geistSans = Geist({
@@ -47,6 +48,7 @@ export default async function RootLayout({
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <RacingCursor />
+        <CursorToggle />
         <Navbar />
         <main>{children}</main>
         <Footer settings={settings} />
