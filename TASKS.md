@@ -18,10 +18,10 @@
 - [x] .npmrc
 - [x] AGENTS.md
 - [x] TASKS.md
-- [ ] GitHub Actions CI workflow
-- [ ] Neon database setup
-- [ ] DB migration file (all tables + indexes)
-- [ ] .env.local values filled
+- [x] GitHub Actions CI workflow
+- [x] Neon database setup
+- [x] DB migration file (all tables + indexes)
+- [x] .env.local values filled
 
 ### Step 2 — Data Layer
 - [ ] src/lib/db.ts
