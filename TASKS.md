@@ -24,16 +24,16 @@
 - [x] .env.local values filled
 
 ### Step 2 — Data Layer
-- [ ] src/lib/db.ts
-- [ ] src/lib/r2.ts
-- [ ] src/lib/utils.ts
-- [ ] src/types/ (all interfaces)
-- [ ] src/lib/services/events.ts
-- [ ] src/lib/services/team.ts
-- [ ] src/lib/services/gallery.ts
-- [ ] src/lib/services/sponsors.ts
-- [ ] src/lib/services/applications.ts
-- [ ] src/lib/services/settings.ts
+- [x] src/lib/db.ts
+- [x] src/lib/r2.ts
+- [x] src/lib/utils.ts
+- [x] src/types/ (all interfaces)
+- [x] src/lib/services/events.ts
+- [x] src/lib/services/team.ts
+- [x] src/lib/services/gallery.ts
+- [x] src/lib/services/sponsors.ts
+- [x] src/lib/services/applications.ts
+- [x] src/lib/services/settings.ts
 
 ### Step 3 — Auth
 - [ ] src/lib/auth.ts
