@@ -1,11 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
 import { RacingCursor } from "@/components/layout/RacingCursor";
 import { CursorToggle } from "@/components/layout/CursorToggle";
-import { getAllSettings } from "@/lib/services/settings";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +20,7 @@ export const metadata: Metadata = {
     template: "%s | Team Vegavath",
   },
   description:
-    "Team Vegavath is the official student innovation club of PES University Electronic City Campus — racing toward innovation in automotive, robotics, design, media, and marketing.",
+    "Team Vegavath is the official student innovation club of PES University, Electronic City Campus — racing toward innovation in automotive, robotics, design, media, and marketing.",
   keywords: ["Vegavath", "PESU ECC", "student club", "robotics", "automotive", "kart"],
   openGraph: {
     title: "Team Vegavath",
@@ -37,21 +34,17 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const settings = await getAllSettings().catch(() => null);
-
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
         <RacingCursor />
         <CursorToggle />
-        <Navbar />
-        <main>{children}</main>
-        <Footer settings={settings} />
+        {children}
       </body>
     </html>
   );

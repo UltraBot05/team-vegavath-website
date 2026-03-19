@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 import { auth, signIn } from "@/lib/auth";
@@ -7,16 +8,46 @@ export const metadata: Metadata = {
   title: "Admin | Team Vegavath",
 };
 
-export default async function AdminLoginPage() {
+export default async function AdminLoginPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
   const session = await auth();
+  const { error } = await searchParams;
 
   if (session?.user?.isAdmin) {
     redirect("/admin/dashboard");
   }
 
+  async function handleLogin(formData: FormData) {
+    "use server";
+    try {
+      await signIn("credentials", {
+        username: formData.get("username"),
+        password: formData.get("password"),
+        redirectTo: "/admin/dashboard",
+      });
+    } catch (error) {
+      if (
+        error instanceof Error &&
+        (error.message === "CredentialsSignin" ||
+          error.constructor.name === "CredentialsSignin" ||
+          String(error).includes("CredentialsSignin"))
+      ) {
+        redirect("/admin?error=invalid");
+      }
+      // Re-throw redirect errors so Next.js handles them correctly
+      throw error;
+    }
+  }
+
   return (
     <main className="flex min-h-screen items-center justify-center bg-zinc-950 px-4 py-10">
       <section className="w-full max-w-md rounded-2xl border border-zinc-800 bg-zinc-900 p-8 shadow-2xl shadow-black/40">
+        <Link href="/" className="text-zinc-400 hover:text-white text-sm transition-colors">
+          ← Back to site
+        </Link>
         <div className="mb-8 text-center">
           <div className="mb-3 text-3xl" aria-hidden="true">
             ⚠️
@@ -29,14 +60,7 @@ export default async function AdminLoginPage() {
           </p>
         </div>
 
-        <form
-          action={async (formData: FormData) => {
-            "use server";
-            formData.set("redirectTo", "/admin/dashboard");
-            await signIn("credentials", formData);
-          }}
-          className="space-y-4"
-        >
+        <form action={handleLogin} className="space-y-4">
           <div>
             <label htmlFor="username" className="sr-only">
               Username
@@ -64,6 +88,12 @@ export default async function AdminLoginPage() {
               className="w-full rounded-lg border border-zinc-700 bg-zinc-950 px-4 py-3 text-sm text-zinc-100 placeholder:text-zinc-500 focus:border-orange-500 focus:outline-none"
             />
           </div>
+
+          {error ? (
+            <p className="rounded-lg border border-red-700/60 bg-red-950/50 px-3 py-2 text-sm font-medium text-red-300">
+              Invalid username or password
+            </p>
+          ) : null}
 
           <button
             type="submit"
