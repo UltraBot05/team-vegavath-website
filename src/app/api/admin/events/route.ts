@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
+import { sql } from "@/lib/db";
 import { getEvents, createEvent, updateEvent, archiveEvent } from "@/lib/services/events";
 import { slugify } from "@/lib/utils";
 
@@ -66,7 +67,14 @@ export async function DELETE(req: NextRequest) {
     const id = new URL(req.url).searchParams.get("id");
     if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
 
-    await archiveEvent(id);
+    const permanent = new URL(req.url).searchParams.get("permanent");
+
+    if (permanent === "true") {
+      await sql`DELETE FROM events WHERE id = ${id}`;
+    } else {
+      await archiveEvent(id);
+    }
+
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("[DELETE /api/admin/events]", error);

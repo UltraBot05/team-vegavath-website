@@ -84,9 +84,7 @@ export default function EventForm({ mode, initialData }: EventFormProps) {
         cover_image_url = await uploadFile(coverFile, `events/${slug}/cover.jpg`);
       }
 
-      const payload = {
-        id: initialData?.id,
-        mode,
+      const eventFields = {
         title,
         slug,
         category,
@@ -99,8 +97,11 @@ export default function EventForm({ mode, initialData }: EventFormProps) {
         cover_image_url,
       };
 
+      const isEdit = mode === "edit" && Boolean(initialData?.id);
+      const payload = isEdit ? { id: initialData?.id, ...eventFields } : eventFields;
+
       const res = await fetch("/api/admin/events", {
-        method: "POST",
+        method: isEdit ? "PATCH" : "POST",
         headers: {
           "Content-Type": "application/json",
         },

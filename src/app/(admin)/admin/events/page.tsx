@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 
 import DeleteEventButton from "@/components/admin/DeleteEventButton";
 import EventForm from "@/components/admin/EventForm";
+import ToggleEventStatusButton from "@/components/admin/ToggleEventStatusButton";
 import { auth } from "@/lib/auth";
 import { getEvents } from "@/lib/services/events";
 import type { Event } from "@/types/event";
@@ -117,6 +118,10 @@ export default async function AdminEventsPage({
                           >
                             Edit
                           </Link>
+                          <ToggleEventStatusButton
+                            id={event.id}
+                            currentStatus={event.status}
+                          />
                           <DeleteEventButton id={event.id} title={event.title} />
                         </div>
                       </td>

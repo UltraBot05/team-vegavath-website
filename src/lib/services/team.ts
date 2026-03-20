@@ -23,11 +23,11 @@ export async function createMember(input: CreateMemberInput): Promise<TeamMember
   const rows = await sql`
     INSERT INTO team_members (
       name, role, tier, domain, quote,
-      photo_url, display_order, is_active
+      linkedin_url, photo_url, display_order, is_active
     ) VALUES (
       ${input.name}, ${input.role}, ${input.tier},
       ${input.domain ?? null}, ${input.quote ?? null},
-      ${input.photo_url ?? null}, ${input.display_order}, ${input.is_active}
+      ${input.linkedin_url ?? null}, ${input.photo_url ?? null}, ${input.display_order}, ${input.is_active}
     ) RETURNING *`;
   return rows[0] as TeamMember;
 }
@@ -43,6 +43,7 @@ export async function updateMember(
       tier = COALESCE(${input.tier ?? null}, tier),
       domain = COALESCE(${input.domain ?? null}, domain),
       quote = COALESCE(${input.quote ?? null}, quote),
+      linkedin_url = COALESCE(${input.linkedin_url ?? null}, linkedin_url),
       photo_url = COALESCE(${input.photo_url ?? null}, photo_url),
       display_order = COALESCE(${input.display_order ?? null}, display_order)
     WHERE id = ${id}
