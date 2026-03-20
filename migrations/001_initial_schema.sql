@@ -76,11 +76,15 @@ CREATE TABLE IF NOT EXISTS sponsors (
   logo_url       TEXT NOT NULL,
   website_url    TEXT,
   description    TEXT,
-  tier           TEXT NOT NULL DEFAULT 'community' CHECK (tier IN ('title', 'gold', 'silver', 'community')),
+  tier           TEXT NOT NULL DEFAULT 'community' CHECK (tier IN ('premium', 'community')),
   is_active      BOOLEAN NOT NULL DEFAULT true,
   display_order  INTEGER NOT NULL DEFAULT 0,
   created_at     TIMESTAMPTZ NOT NULL DEFAULT now()
 );
+
+-- Manual Neon update for existing databases:
+-- ALTER TABLE sponsors DROP CONSTRAINT IF EXISTS sponsors_tier_check;
+-- ALTER TABLE sponsors ADD CONSTRAINT sponsors_tier_check CHECK (tier IN ('premium', 'community'));
 
 CREATE INDEX IF NOT EXISTS idx_sponsors_active  ON sponsors(is_active, display_order);
 

@@ -4,7 +4,7 @@ export interface Sponsor {
   logo_url: string;
   website_url: string | null;
   description: string | null;
-  tier: "title" | "gold" | "silver" | "community";
+  tier: "premium" | "community";
   is_active: boolean;
   display_order: number;
   created_at: string;
