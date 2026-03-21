@@ -1,6 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
-import { getGalleryItems, createGalleryItem, deleteGalleryItem } from "@/lib/services/gallery";
+import {
+  getGalleryItemsLimited,
+  createGalleryItem,
+  deleteGalleryItem,
+} from "@/lib/services/gallery";
 
 export async function GET() {
   const session = await auth();
@@ -9,7 +13,7 @@ export async function GET() {
   }
 
   try {
-    const items = await getGalleryItems(200);
+    const items = await getGalleryItemsLimited(200);
     return NextResponse.json(items);
   } catch (error) {
     console.error("[GET /api/admin/gallery]", error);

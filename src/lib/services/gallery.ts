@@ -6,7 +6,14 @@ type GalleryEventFilter = {
   event_label: string;
 };
 
-export async function getGalleryItems(limit = 30): Promise<GalleryItem[]> {
+export async function getGalleryItems(): Promise<GalleryItem[]> {
+  const rows = await sql`
+    SELECT * FROM gallery_items
+    ORDER BY display_order ASC, created_at DESC`;
+  return rows as GalleryItem[];
+}
+
+export async function getGalleryItemsLimited(limit = 30): Promise<GalleryItem[]> {
   const rows = await sql`
     SELECT * FROM gallery_items
     ORDER BY display_order ASC, created_at DESC

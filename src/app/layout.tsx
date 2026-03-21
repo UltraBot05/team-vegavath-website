@@ -1,8 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { RacingCursor } from "@/components/layout/RacingCursor";
-import { CursorToggle } from "@/components/layout/CursorToggle";
+import { CursorControls } from "@/components/layout/CursorControls";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -42,8 +41,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <RacingCursor />
-        <CursorToggle />
+        <CursorControls />
         {children}
       </body>
     </html>

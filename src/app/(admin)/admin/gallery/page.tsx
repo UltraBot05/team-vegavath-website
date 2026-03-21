@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import DeleteGalleryItemButton from "@/components/admin/DeleteGalleryItemButton";
 import GalleryUploadForm from "@/components/admin/GalleryUploadForm";
 import { auth } from "@/lib/auth";
-import { deleteGalleryItem, getGalleryItems } from "@/lib/services/gallery";
+import { deleteGalleryItem, getGalleryItemsLimited } from "@/lib/services/gallery";
 import type { GalleryItem } from "@/types/gallery";
 
 export const metadata: Metadata = {
@@ -23,7 +23,7 @@ export default async function AdminGalleryPage() {
 
   void deleteGalleryItem;
 
-  const items = await getGalleryItems(200).catch(() => [] as GalleryItem[]);
+  const items = await getGalleryItemsLimited(200).catch(() => [] as GalleryItem[]);
 
   return (
     <main className="min-h-screen bg-zinc-950 px-4 py-10 text-white sm:px-6 lg:px-8">

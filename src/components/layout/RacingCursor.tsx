@@ -2,17 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export function RacingCursor() {
+export function RacingCursor({ enabled }: { enabled: boolean }) {
   const cursorRef = useRef<HTMLDivElement>(null);
   const trailRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
   const [isTouch, setIsTouch] = useState(true);
-  const [enabled, setEnabled] = useState(false);
 
   useEffect(() => {
     setMounted(true);
     setIsTouch(window.matchMedia("(pointer: coarse)").matches);
-    setEnabled(localStorage.getItem("racing-cursor") !== "false");
   }, []);
 
   useEffect(() => {
@@ -58,7 +56,7 @@ export function RacingCursor() {
     <>
       <div
         ref={cursorRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9999] -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-0 left-0 pointer-events-none z-[2147483647] -translate-x-1/2 -translate-y-1/2"
         style={{ display: enabled ? "block" : "none" }}
       >
         <div className="h-3 w-3 rounded-full bg-orange-500" />
@@ -66,7 +64,7 @@ export function RacingCursor() {
 
       <div
         ref={trailRef}
-        className="pointer-events-none fixed left-0 top-0 z-[9998] -translate-x-1/2 -translate-y-1/2"
+        className="fixed top-0 left-0 pointer-events-none z-[2147483647] -translate-x-1/2 -translate-y-1/2"
         style={{ display: enabled ? "block" : "none" }}
       >
         <div className="h-6 w-6 rounded-full border border-orange-500 opacity-50" />

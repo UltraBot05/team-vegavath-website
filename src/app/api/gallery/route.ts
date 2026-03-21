@@ -1,5 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getGalleryItems, getGalleryByEvent, getGalleryEvents } from "@/lib/services/gallery";
+import {
+  getGalleryItemsLimited,
+  getGalleryByEvent,
+  getGalleryEvents,
+} from "@/lib/services/gallery";
 
 export const dynamic = "force-dynamic";
 
@@ -20,7 +24,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json(items);
     }
 
-    const items = await getGalleryItems(limit);
+    const items = await getGalleryItemsLimited(limit);
     return NextResponse.json(items);
   } catch (error) {
     console.error("[GET /api/gallery]", error);

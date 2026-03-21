@@ -2,33 +2,74 @@
 
 import { useEffect, useState } from "react";
 
-export function CursorToggle() {
-  const [mounted, setMounted] = useState(false);
-  const [isTouch, setIsTouch] = useState(true);
-  const [enabled, setEnabled] = useState(false);
+const STORAGE_KEY = "racing-cursor";
+
+interface CursorToggleProps {
+  enabled: boolean;
+  onToggle: (enabled: boolean) => void;
+}
+
+export default function CursorToggle({ enabled, onToggle }: CursorToggleProps) {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
-    setIsTouch(window.matchMedia("(pointer: coarse)").matches);
-    setEnabled(localStorage.getItem("racing-cursor") !== "false");
+    const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+    setIsTouchDevice(hasTouch);
   }, []);
 
-  if (!mounted || isTouch) return null;
+  if (isTouchDevice) return null;
 
-  const toggle = () => {
-    localStorage.setItem("racing-cursor", String(!enabled));
-    window.location.reload();
+  const handleToggle = () => {
+    const newState = !enabled;
+    onToggle(newState);
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(newState));
+    } catch {}
   };
 
   return (
-    <button
-      onClick={toggle}
-      className="fixed bottom-4 right-4 z-50 flex items-center gap-2 rounded-full bg-white/80 px-3 py-1.5 text-xs font-medium shadow-md backdrop-blur border border-gray-200 hover:border-orange-400 transition-colors"
-    >
-      <span
-        className={`h-2 w-2 rounded-full ${enabled ? "bg-orange-500" : "bg-gray-300"}`}
-      />
-      Cursor
-    </button>
+    <div className="fixed bottom-5 right-5 z-[99999]">
+      <button
+        type="button"
+        onClick={handleToggle}
+        aria-pressed={enabled}
+        aria-label={enabled ? "Disable racing cursor" : "Enable racing cursor"}
+        className="flex items-center gap-1.5 rounded-full focus:outline-none focus-visible:ring-2 focus-visible:ring-[#EF5D08] focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+      >
+        <span className="select-none text-xs font-medium text-gray-400">
+          Cursor
+        </span>
+        <div
+          className={`relative h-5 w-9 rounded-full transition-all duration-300 ease-out ${
+            enabled
+              ? "bg-gradient-to-r from-[#EF5D08] to-[#F29C04] shadow-[0_0_12px_rgba(239,93,8,0.4)]"
+              : "bg-gray-700 hover:bg-gray-600"
+          }`}
+        >
+          <div
+            className={`absolute top-0.5 h-4 w-4 rounded-full bg-white shadow-lg transition-all duration-300 ease-out ${
+              enabled ? "left-[18px]" : "left-0.5"
+            }`}
+          />
+        </div>
+      </button>
+    </div>
   );
+}
+
+export function useCursorPreference() {
+  const [enabled, setEnabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored !== null) {
+        setEnabled(JSON.parse(stored));
+      }
+    } catch {}
+    setIsLoading(false);
+  }, []);
+
+  return { enabled, setEnabled, isLoading };
 }
