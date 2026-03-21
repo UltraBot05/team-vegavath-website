@@ -24,8 +24,8 @@ export default async function EventsPage() {
       <section className="w-full py-24">
         <Container>
           <div className="space-y-8">
-            <header className="mx-auto w-full max-w-4xl space-y-4 border border-red-500 text-center">
-              <h1 className="text-4xl font-extrabold tracking-tight text-[#EBEBEB] md:text-5xl">
+            <header style={{ width: "100%", textAlign: "center", marginBottom: "1rem" }}>
+              <h1 style={{ fontSize: "clamp(2rem, 5vw, 3.5rem)", fontWeight: 800, letterSpacing: "-0.02em", color: "#EBEBEB", textAlign: "center" }}>
                 Events
               </h1>
             </header>
