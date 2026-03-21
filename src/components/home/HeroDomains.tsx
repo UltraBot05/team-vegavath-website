@@ -33,13 +33,34 @@ export default function HeroDomains() {
   }, []);
 
   return (
-    <>
-      <div className="mt-12 flex flex-wrap justify-center gap-4">
+    <div className="center-wrap" style={{ margin: "0 auto", width: "100%" }}>
+      <h2 className="mt-12 text-center text-4xl font-black text-[#EBEBEB] text-mid" style={{ textAlign: "center", marginBottom: "2rem" }}>Our Domains</h2>
+      <div className="flex flex-wrap justify-center gap-4 md:gap-5 flex-mid" style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.75rem" }}>
         {DOMAINS.map((domain) => (
           <button
             key={domain.id}
             onClick={() => active === domain.id ? closeModal() : openModal(domain.id)}
-            className="rounded-full border border-[#EF5D08] bg-[#EF5D08] px-6 py-3 text-base font-semibold text-white transition-all hover:scale-105 hover:bg-[#d44f06]"
+            style={{
+              borderRadius: "9999px",
+              border: "1.5px solid #EF5D08",
+              background: "transparent",
+              color: "#EF5D08",
+              padding: "0.75rem 1.75rem",
+              fontSize: "clamp(0.95rem, 1.2vw, 1.2rem)",
+              fontWeight: 600,
+              lineHeight: 1,
+              whiteSpace: "nowrap",
+              cursor: "pointer",
+              transition: "all 0.2s ease",
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLButtonElement).style.background = "#EF5D08";
+              (e.currentTarget as HTMLButtonElement).style.color = "white";
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLButtonElement).style.background = "transparent";
+              (e.currentTarget as HTMLButtonElement).style.color = "#EF5D08";
+            }}
           >
             {domain.title}
           </button>
@@ -102,6 +123,6 @@ export default function HeroDomains() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }

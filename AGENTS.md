@@ -5,7 +5,7 @@ Follow these rules exactly. Do not improvise structure.
 
 ## Stack
 
-- Next.js 16 App Router + TypeScript (strict mode)
+- Next.js 1 App Router + TypeScript (strict mode)
 - Tailwind CSS v4
 - Framer Motion (UI transitions only)
 - React Three Fiber + Drei (3D kart model)

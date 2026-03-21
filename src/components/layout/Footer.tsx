@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { SiteSettings } from "@/types/settings";
 
 const QUICK_LINKS = [
@@ -22,33 +23,43 @@ interface FooterProps {
   settings: SiteSettings | null;
 }
 
-interface SocialLink {
-  url: string;
-  label: string;
-}
+type SocialLabel = "Instagram" | "LinkedIn" | "GitHub";
+
+const SOCIAL_ICONS: Record<SocialLabel, string> = {
+  Instagram: "https://pub-f86fbbd7cd4a45088698b74e2b9a3e5f.r2.dev/icons/instagram.png",
+  LinkedIn: "https://pub-f86fbbd7cd4a45088698b74e2b9a3e5f.r2.dev/icons/linkedin.png",
+  GitHub: "https://pub-f86fbbd7cd4a45088698b74e2b9a3e5f.r2.dev/icons/github.png",
+};
 
 function SocialLinks({ settings }: { settings: SiteSettings | null }) {
   if (!settings) return null;
 
-  const links: SocialLink[] = [
-    { url: settings.instagram_url, label: "Instagram" },
-    { url: settings.linkedin_url, label: "LinkedIn" },
-    { url: settings.github_url, label: "GitHub" },
-  ].filter((l): l is SocialLink => Boolean(l.url));
+  const links = [
+    { url: settings.instagram_url, label: "Instagram" as SocialLabel },
+    { url: settings.linkedin_url, label: "LinkedIn" as SocialLabel },
+    { url: settings.github_url, label: "GitHub" as SocialLabel },
+  ].filter((l): l is { url: string; label: SocialLabel } => Boolean(l.url));
 
   if (links.length === 0) return null;
 
   return (
-    <div className="mb-4 flex gap-4">
+    <div style={{ display: "flex", gap: "1.25rem", marginBottom: "1.25rem" }}>
       {links.map(({ url, label }) => (
         <a
           key={label}
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="text-sm text-[#9a9a9a] transition-colors hover:text-[#F29C04]"
+          title={label}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "64px", height: "64px", background: "#1a1a1a", borderRadius: "0.75rem", border: "1px solid #2a2a2a", transition: "border-color 0.2s" }}
         >
-          {label}
+          <Image
+            src={SOCIAL_ICONS[label]}
+            alt={label}
+            width={36}
+            height={36}
+            style={{ width: "36px", height: "36px", objectFit: "contain" }}
+          />
         </a>
       ))}
     </div>
@@ -60,21 +71,21 @@ export function Footer({ settings }: FooterProps) {
 
   return (
     <footer className="border-t border-[#2a2a2a] bg-[#121212]">
-      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8">
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-4">
+      <div className="max-w-7xl" style={{ margin: "0 auto", padding: "3rem 1.5rem" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: "3.2rem" }} className="footer-grid">
           <div className="md:col-span-1">
-            <p className="mb-3 text-xl font-black uppercase tracking-wider text-[#EF5D08]">VEGAVATH</p>
-            <p className="mb-6 text-sm leading-relaxed text-[#9a9a9a]">
+            <p className="mb-4 text-3xl font-black uppercase tracking-wider text-[#EF5D08]">VEGAVATH</p>
+            <p className="mb-5 text-lg leading-relaxed text-[#9a9a9a]">
               Racing toward innovation in automotive, robotics, design, media, and marketing excellence.
             </p>
           </div>
 
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-[#EBEBEB]">Quick Links</p>
+            <p className="mb-4 text-sm font-bold uppercase tracking-widest text-[#EBEBEB]">Quick Links</p>
             <ul className="space-y-3">
               {QUICK_LINKS.map(({ href, label }) => (
                 <li key={href}>
-                  <Link href={href} className="text-sm text-[#9a9a9a] transition-colors hover:text-[#F29C04]">
+                  <Link href={href} className="text-lg text-[#9a9a9a] transition-colors hover:text-[#F29C04]">
                     {label}
                   </Link>
                 </li>
@@ -83,32 +94,32 @@ export function Footer({ settings }: FooterProps) {
           </div>
 
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-[#EBEBEB]">Our Domains</p>
+            <p className="mb-4 text-sm font-bold uppercase tracking-widest text-[#EBEBEB]">Our Domains</p>
             <ul className="space-y-3">
               {DOMAINS.map((domain) => (
-                <li key={domain} className="text-sm text-[#9a9a9a]">{domain}</li>
+                <li key={domain} className="text-lg text-[#9a9a9a]">{domain}</li>
               ))}
             </ul>
           </div>
 
           <div>
-            <p className="mb-4 text-xs font-bold uppercase tracking-widest text-[#EBEBEB]">Stay Connected</p>
+            <p className="mb-4 text-sm font-bold uppercase tracking-widest text-[#EBEBEB]">Stay Connected</p>
             <SocialLinks settings={settings} />
             {settings?.contact_email && (
-              <p className="mt-3 text-sm text-[#9a9a9a]">{settings.contact_email}</p>
+              <p className="mt-3 text-base text-[#9a9a9a]">{settings.contact_email}</p>
             )}
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col items-center justify-between gap-3 border-t border-[#2a2a2a] pt-8 sm:flex-row">
-          <p className="text-xs text-[#666666]">{`© ${year} Team Vegavath. All rights reserved.`}</p>
+        <div style={{ marginTop: "2.8rem", borderTop: "1px solid #2a2a2a", paddingTop: "1.8rem", display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-between", gap: "1.5rem" }}>
+          <p className="text-sm text-[#666666]">{`© ${year} Team Vegavath. All rights reserved.`}</p>
           <div className="flex items-center gap-6">
-            <Link href="/legal" className="text-xs text-[#666666] transition-colors hover:text-[#F29C04]">Legal</Link>
-            <p className="text-xs text-[#666666]">Made with ♥ by Vegavath Team</p>
+            <Link href="/legal" className="text-sm text-[#666666] transition-colors hover:text-[#F29C04]">Legal</Link>
+            <p className="text-sm text-[#666666]">Made with ♥ by Vegavath Team</p>
           </div>
         </div>
 
-        <div className="mt-4 h-px bg-gradient-to-r from-transparent via-[#EF5D08] to-transparent opacity-40" />
+        <div className="mt-3 h-px bg-gradient-to-r from-transparent via-[#EF5D08] to-transparent opacity-40" />
       </div>
     </footer>
   );
