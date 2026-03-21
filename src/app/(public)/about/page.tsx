@@ -14,10 +14,12 @@ const missionText =
   "To create a future-ready community where technology, innovation, and teamwork converge — shaping the next generation of leaders in mobility, robotics, and digital transformation.";
 
 const domains = [
-  "Automotive Engineering",
-  "Robotics",
-  "Design",
-  "Media & Marketing",
+  { title: "Coding", emoji: "💻", description: "The backbone of everything we build. From embedded systems and automotive software to autonomous robotics code, internal tools, and full-stack websites — we code it all." },
+  { title: "Automotives", emoji: "🏎️", description: "Where ideas turn into machines. We design, build, and fabricate vehicles — from simulations to hands-on assembly." },
+  { title: "Sponsorship & Finance", emoji: "🤝", description: "Powering innovation through partnerships. This domain handles budgeting, sponsor relations, and industry collaborations." },
+  { title: "Robotics", emoji: "🤖", description: "Designing intelligence in motion. We build robots combining mechanics, electronics, and software." },
+  { title: "Operations", emoji: "⚙️", description: "The engine that keeps the club running — permissions, LORs, members, events, and internal workflows." },
+  { title: "Social Media", emoji: "📣", description: "Telling our story to the world. Marketing, content creation, outreach, and showcasing everything Vegavath builds." },
 ] as const;
 
 const visionDomains = [
@@ -32,7 +34,7 @@ const visionDomains = [
 const timelineEntries = [
   {
     year: "2020",
-    title: "Vegavath Technical Club Founded",
+    title: "Team Vegavath Founded",
     description: "Started with a vision to bridge academia and industry",
   },
   {
@@ -94,9 +96,9 @@ export default async function AboutPage() {
   const marqueeSponsors = sponsors.length > 0 ? [...sponsors, ...sponsors] : [];
 
   return (
-    <main className="bg-[#121212] text-[#EBEBEB]">
-      <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-4 py-12 sm:px-6 lg:gap-24 lg:px-8 lg:py-16">
-        <section className="grid gap-8 md:grid-cols-2 md:items-center">
+    <main className="bg-[#121212] text-[#EBEBEB]" style={{ overflowX: "hidden" }}>
+      <div style={{ margin: "0 auto", width: "100%", maxWidth: "80rem", display: "flex", flexDirection: "column", gap: "5rem", padding: "3rem 1.25rem", boxSizing: "border-box" }}>
+        <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 28rem), 1fr))", gap: "2rem", alignItems: "center" }}>
           <div className="space-y-4">
             <p className="text-sm font-semibold uppercase tracking-[0.28em] text-[#EF5D08]">
               Who We Are
@@ -114,35 +116,40 @@ export default async function AboutPage() {
             </p>
           </div>
 
-          <div className="aspect-video rounded-3xl bg-[#2a2a2a]" />
+          <div className="aspect-video rounded-3xl overflow-hidden" style={{ position: "relative" }}>
+            <Image
+              src="https://pub-f86fbbd7cd4a45088698b74e2b9a3e5f.r2.dev/team/team-photo.jpeg"
+              alt="Team Vegavath"
+              fill
+              style={{ objectFit: "cover" }}
+            />
+          </div>
         </section>
 
-        <section className="rounded-3xl border border-[#2a2a2a] bg-[#1a1a1a] px-6 py-10 text-center shadow-sm sm:px-8">
+        <section className="rounded-3xl border border-[#2a2a2a] bg-[#1a1a1a] text-center shadow-sm" style={{ padding: "2.5rem 1.5rem" }}>
           <h2 className="text-2xl font-bold text-[#EBEBEB] sm:text-3xl">
             Our Mission
           </h2>
-          <p className="mx-auto mt-4 max-w-3xl text-base leading-7 text-[#9a9a9a] sm:text-lg">
+          <p style={{ margin: "1rem auto 0", maxWidth: "48rem", fontSize: "1rem", lineHeight: 1.75, color: "#9a9a9a" }}>
             {missionText}
           </p>
         </section>
 
         <section className="space-y-8">
-          <h2 className="text-2xl font-bold tracking-tight text-[#EBEBEB] sm:text-3xl">
+          <h2 className="text-2xl font-bold tracking-tight text-[#EBEBEB]" style={{ textAlign: "center" }}>
             What We Do
           </h2>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="domains-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: "1.5rem" }}>
             {domains.map((domain) => (
               <article
-                key={domain}
-                className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] p-6 shadow-sm transition-colors hover:border-[#EF5D08]"
+                key={domain.title}
+                className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm transition-colors hover:border-[#EF5D08]"
+                style={{ padding: "1.5rem" }}
               >
-                <div className="h-16 w-16 rounded bg-[#2a2a2a]" />
-                <h3 className="mt-5 text-lg font-bold text-[#EBEBEB]">{domain}</h3>
-                <div className="mt-4 space-y-2">
-                  <div className="h-3 w-full rounded bg-[#2a2a2a]" />
-                  <div className="h-3 w-4/5 rounded bg-[#2a2a2a]" />
-                </div>
+                <div style={{ fontSize: "2rem", marginBottom: "0.75rem" }}>{domain.emoji}</div>
+                <h3 className="text-lg font-bold text-[#EBEBEB]">{domain.title}</h3>
+                <p style={{ marginTop: "0.75rem", fontSize: "0.9rem", lineHeight: 1.6, color: "#9a9a9a" }}>{domain.description}</p>
               </article>
             ))}
           </div>
@@ -150,7 +157,7 @@ export default async function AboutPage() {
 
         {sponsors.length > 0 ? (
           <section className="space-y-8 overflow-hidden">
-            <h2 className="text-2xl font-bold tracking-tight text-[#EBEBEB] sm:text-3xl">
+            <h2 className="text-2xl font-bold tracking-tight text-[#EBEBEB]" style={{ textAlign: "center" }}>
               Our Sponsors
             </h2>
 
@@ -194,8 +201,8 @@ export default async function AboutPage() {
           </section>
         ) : null}
 
-        <section className="grid gap-8 md:grid-cols-2">
-          <div className="space-y-6 rounded-3xl border border-[#2a2a2a] bg-[#1a1a1a] p-6 sm:p-8">
+        <section style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(min(100%, 28rem), 1fr))", gap: "2rem" }}>
+          <div className="space-y-6 rounded-3xl border border-[#2a2a2a] bg-[#1a1a1a]" style={{ padding: "1.75rem" }}>
             <div className="space-y-3">
               <h2 className="text-2xl font-bold text-[#EBEBEB]">
                 OUR JOURNEY &amp; WHAT WE DO
@@ -208,7 +215,7 @@ export default async function AboutPage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-3 gap-4">
               <div className="rounded-2xl border border-[#2a2a2a] bg-[#222222] p-5 shadow-sm">
                 <p className="text-2xl font-black text-[#EF5D08]">10+</p>
                 <p className="mt-1 text-sm font-medium text-[#9a9a9a]">Projects</p>
@@ -217,10 +224,14 @@ export default async function AboutPage() {
                 <p className="text-2xl font-black text-[#EF5D08]">3+</p>
                 <p className="mt-1 text-sm font-medium text-[#9a9a9a]">Awards</p>
               </div>
+              <div className="rounded-2xl border border-[#2a2a2a] bg-[#222222] p-5 shadow-sm">
+                <p className="text-2xl font-black text-[#EF5D08]">85</p>
+                <p className="mt-1 text-sm font-medium text-[#9a9a9a]">Active Members</p>
+              </div>
             </div>
           </div>
 
-          <div className="space-y-6 rounded-3xl border border-[#2a2a2a] bg-[#1a1a1a] p-6 shadow-sm sm:p-8">
+          <div className="space-y-6 rounded-3xl border border-[#2a2a2a] bg-[#1a1a1a] shadow-sm" style={{ padding: "1.75rem" }}>
             <div className="space-y-3">
               <h2 className="text-2xl font-bold text-[#EBEBEB]">OUR VISION</h2>
               <p className="text-base leading-7 text-[#9a9a9a]">{missionText}</p>
@@ -250,37 +261,34 @@ export default async function AboutPage() {
           </h2>
 
           <div className="relative">
-            <div className="absolute left-4 top-0 h-full w-px bg-[#2a2a2a] md:left-1/2 md:-translate-x-1/2" />
+            <div style={{ position: "absolute", left: "50%", top: 0, height: "100%", width: "2px", background: "#2a2a2a", transform: "translateX(-50%)" }} />
 
             <div className="space-y-8">
               {timelineEntries.map((entry, index) => (
                 <div
                   key={entry.year}
-                  className={`relative grid gap-4 md:grid-cols-2 ${
-                    index % 2 === 0 ? "" : "md:[&>div:first-child]:order-2"
-                  }`}
+                  style={{ position: "relative", display: "grid", gridTemplateColumns: "1fr 1fr", gap: "2rem", alignItems: "start" }}
                 >
-                  <div
-                    className={`pl-12 md:pl-0 ${
-                      index % 2 === 0 ? "md:pr-10" : "md:pl-10"
-                    }`}
-                  >
-                    <article className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] p-6 shadow-sm transition-colors hover:border-[#EF5D08]">
-                      <p className="text-sm font-semibold uppercase tracking-[0.24em] text-[#EF5D08]">
-                        {entry.year}
-                      </p>
-                      <h3 className="mt-2 text-xl font-bold text-[#EBEBEB]">
-                        {entry.title}
-                      </h3>
-                      <p className="mt-3 text-sm leading-6 text-[#9a9a9a] sm:text-base">
-                        {entry.description}
-                      </p>
-                    </article>
-                  </div>
-
-                  <div className="hidden md:block" />
-
-                  <div className="absolute left-4 top-8 h-3 w-3 -translate-x-1/2 rounded-full border-4 border-[#121212] bg-[#EF5D08] md:left-1/2" />
+                  {index % 2 === 0 ? (
+                    <>
+                      <article style={{ borderRadius: "1rem", border: "1px solid #2a2a2a", background: "#1a1a1a", padding: "1.5rem", transition: "border-color 0.2s" }} className="hover:border-[#EF5D08]">
+                        <p style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.24em", color: "#EF5D08" }}>{entry.year}</p>
+                        <h3 style={{ marginTop: "0.5rem", fontSize: "1.25rem", fontWeight: 700, color: "#EBEBEB" }}>{entry.title}</h3>
+                        <p style={{ marginTop: "0.75rem", fontSize: "0.9rem", lineHeight: 1.6, color: "#9a9a9a" }}>{entry.description}</p>
+                      </article>
+                      <div />
+                    </>
+                  ) : (
+                    <>
+                      <div />
+                      <article style={{ borderRadius: "1rem", border: "1px solid #2a2a2a", background: "#1a1a1a", padding: "1.5rem", transition: "border-color 0.2s" }} className="hover:border-[#EF5D08]">
+                        <p style={{ fontSize: "0.75rem", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.24em", color: "#EF5D08" }}>{entry.year}</p>
+                        <h3 style={{ marginTop: "0.5rem", fontSize: "1.25rem", fontWeight: 700, color: "#EBEBEB" }}>{entry.title}</h3>
+                        <p style={{ marginTop: "0.75rem", fontSize: "0.9rem", lineHeight: 1.6, color: "#9a9a9a" }}>{entry.description}</p>
+                      </article>
+                    </>
+                  )}
+                  <div style={{ position: "absolute", left: "50%", top: "1.75rem", height: "0.75rem", width: "0.75rem", borderRadius: "50%", background: "#EF5D08", transform: "translateX(-50%)" }} />
                 </div>
               ))}
             </div>
@@ -292,11 +300,12 @@ export default async function AboutPage() {
             OUR VALUES
           </h2>
 
-          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "1.25rem" }}>
             {values.map((value) => (
               <article
                 key={value.title}
-                className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] p-6 text-center shadow-sm transition-colors hover:border-[#EF5D08]"
+                className="rounded-2xl border border-[#2a2a2a] bg-[#1a1a1a] text-center shadow-sm transition-colors hover:border-[#EF5D08]"
+                style={{ padding: "1.5rem" }}
               >
                 <div className="text-3xl" aria-hidden="true">
                   {value.icon}
@@ -312,20 +321,16 @@ export default async function AboutPage() {
           </div>
         </section>
 
-        <section className="rounded-3xl bg-[#121212] px-6 py-12 text-center text-[#EBEBEB] sm:px-8 border border-[#2a2a2a]">
-          <h2 className="text-3xl font-black tracking-tight sm:text-4xl">
-            Join Vegavath Technical Club
-          </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-[#9a9a9a] sm:text-lg">
-            Bring your curiosity, build with a passionate team, and grow through
-            real projects in mobility, robotics, and technology.
-          </p>
-          <Link
-            href="/join"
-            className="mt-8 inline-flex items-center justify-center rounded-full bg-[#EF5D08] px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-[#d44f06]"
-          >
-            Join Now
-          </Link>
+        <section style={{ width: "100%", display: "flex", justifyContent: "center" }}>
+          <div style={{ width: "100%", maxWidth: "56rem", border: "2px dashed #EF5D08", borderRadius: "1.5rem", padding: "4rem 2rem", textAlign: "center", boxSizing: "border-box" }}>
+            <h2 style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", fontWeight: 900, color: "#EBEBEB", textAlign: "center" }}>Join Team Vegavath</h2>
+            <p style={{ marginTop: "1rem", color: "#9a9a9a", fontSize: "1.1rem", textAlign: "center" }}>Be part of a community building the future of mobility and technology</p>
+            <div style={{ marginTop: "2rem", textAlign: "center" }}>
+              <Link href="/join" style={{ display: "inline-flex", alignItems: "center", background: "white", color: "#EF5D08", fontWeight: 700, fontSize: "1.1rem", borderRadius: "9999px", padding: "0.875rem 2.5rem", textDecoration: "none" }}>
+                Apply Now 🏁
+              </Link>
+            </div>
+          </div>
         </section>
       </div>
     </main>

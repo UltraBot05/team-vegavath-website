@@ -150,6 +150,9 @@ body {
   .md\:block {
     display: none !important;
   }
+  .domains-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
 }
 
 @media (min-width: 768px) {
