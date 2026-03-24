@@ -1,36 +1,180 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Team Vegavath Official Website
+
+The official website for Team Vegavath — the student innovation club of PES University, Electronic City Campus (PESU ECC). Built with Next.js 15 App Router, featuring a mobile-first design, 3D kart model viewer, and a full admin panel.
+
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15.1.7 App Router + TypeScript strict |
+| Styling | Tailwind CSS v4 |
+| Animations | Framer Motion |
+| 3D | React Three Fiber + Drei |
+| Database | Neon Postgres (Singapore ap-southeast-1) |
+| Media/CDN | Cloudflare R2 |
+| Auth | NextAuth.js v5 beta |
+| CI/CD | GitHub Actions |
+| Deployment | Vercel |
+
+## Features
+
+- **Homepage** — Hero with 3D interactive go-kart model (desktop), domain pills, events preview, sponsors marquee, join banner
+- **About** — Team info, mission, domains, sponsors carousel, journey timeline, values
+- **Events** — Filter by category (Workshops, Hackathons, Competitions, Talks), event detail pages with media lightbox
+- **Gallery** — Masonry grid with lightbox, filter by event, YouTube video support
+- **Crew** — Core, Crew, and Legacy tier display with member cards
+- **Sponsors** — Premium and community partner tiers
+- **Join** — Recruitment form (when open) with DB storage, closed state when recruitment is off
+- **Legal** — Privacy policy and terms of service
+- **Admin Panel** — Full CRUD for events, team, gallery, sponsors, settings, applications
+
+## Design System
+
+```
+Background:   #121212   Card: #1a1a1a   Elevated: #222222
+Text Primary: #EBEBEB   Secondary: #9a9a9a   Muted: #666666
+Accent:       #EF5D08 (Cayenne Red)
+Accent Hover: #d44f06
+Accent 2:     #F29C04 (Golden Orange)
+Border:       #2a2a2a
+```
+
+Dark-first. No light mode.
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- npm
+
+### Installation
+
+```bash
+npm install
+```
+
+### Environment Variables
+
+Create a `.env.local` file in the root:
+
+```env
+# Database
+DATABASE_URL=postgresql://...
+
+# Auth
+NEXTAUTH_SECRET=
+NEXTAUTH_URL=http://localhost:3000
+AUTH_SECRET=
+ADMIN_USERNAME=
+ADMIN_PASSWORD=
+
+# Cloudflare R2
+CLOUDFLARE_ACCOUNT_ID=
+CLOUDFLARE_R2_ACCESS_KEY_ID=
+CLOUDFLARE_R2_SECRET_ACCESS_KEY=
+CLOUDFLARE_R2_BUCKET_NAME=vegavath-media
+CLOUDFLARE_R2_PUBLIC_URL=https://pub-f86fbbd7cd4a45088698b74e2b9a3e5f.r2.dev
+```
+
+### Run Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Build for Production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+npm run start
+```
 
-## Learn More
+## Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+src/
+├── app/
+│   ├── (public)/          # Public pages
+│   │   ├── page.tsx       # Homepage
+│   │   ├── about/
+│   │   ├── events/
+│   │   ├── gallery/
+│   │   ├── crew/
+│   │   ├── sponsors/
+│   │   ├── join/
+│   │   └── legal/
+│   ├── (admin)/           # Admin panel (protected)
+│   │   └── admin/
+│   │       ├── dashboard/
+│   │       ├── events/
+│   │       ├── team/
+│   │       ├── gallery/
+│   │       ├── sponsors/
+│   │       └── settings/
+│   └── api/               # API routes
+├── components/
+│   ├── layout/            # Navbar, Footer, Cursor
+│   ├── home/              # Hero, KartModel, HeroDomains
+│   ├── about/             # AboutHeroImage
+│   ├── events/            # EventsClient, EventMediaClient
+│   ├── gallery/           # GalleryClient
+│   ├── join/              # JoinClient
+│   └── admin/             # All admin components
+├── lib/
+│   ├── db.ts              # Neon DB connection
+│   ├── auth.ts            # NextAuth config
+│   └── services/          # DB service functions
+└── types/                 # TypeScript types
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database Schema
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```sql
+events         — id, title, slug, category, status, description, event_date, cover_image_url, registration_open
+team_members   — id, name, role, tier (core|crew|legacy), domain, photo_url, quote, linkedin_url
+gallery_items  — id, event_id, event_label, type (image|video), url, thumbnail_url, caption
+sponsors       — id, name, logo_url, website_url, description, tier (premium|community)
+applications   — id, name, email, domain_interest, portfolio_url, status
+site_settings  — key, value (recruitment_open, contact_email, social URLs, etc.)
+```
 
-## Deploy on Vercel
+## Media Storage (Cloudflare R2)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+vegavath-media/
+├── gallery/         # Event photos
+├── team/            # Member photos (core/, crew/, legacy/)
+├── sponsors/        # Sponsor logos
+├── icons/           # Logo, social icons
+└── models/          # 3D models (vegavath-gokart.glb)
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Admin Panel
+
+Access at `/admin` with credentials stored in environment variables.
+
+Features:
+- Manage events (create, edit, archive, delete)
+- Manage team members (all tiers)
+- Upload gallery images to R2
+- Manage sponsors
+- Site settings (recruitment toggle, social links, contact info)
+- View applications
+
+## Known Issues & Notes
+
+- Tailwind v4 `mx-auto` and responsive prefix classes do not generate CSS in this setup — all centering uses inline styles or `@utility` blocks in globals.css
+- 3D kart model is desktop-only (mobile shows placeholder)
+- Neon free tier suspends after 5 min inactivity — first request after suspension takes 2-5 seconds to wake
+
+## Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+- Mobile Safari (iOS 14+)
+- Chrome Mobile (Android)
