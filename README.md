@@ -1,20 +1,20 @@
 # Team Vegavath Official Website
 
-The official website for Team Vegavath — the student innovation club of PES University, Electronic City Campus (PESU ECC). Built with Next.js 15 App Router, featuring a mobile-first design, 3D kart model viewer, and a full admin panel.
+The official website for Team Vegavath — the student innovation club of PES University, Electronic City Campus (PESU ECC). Built with Next.js 16 App Router, featuring a mobile-first design, 3D kart model viewer, and a full admin panel.
 
 ## Tech Stack
 
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 15.1.7 App Router + TypeScript strict |
-| Styling | Tailwind CSS v4 |
-| Animations | Framer Motion |
-| 3D | React Three Fiber + Drei |
-| Database | Neon Postgres (Singapore ap-southeast-1) |
-| Media/CDN | Cloudflare R2 |
-| Auth | NextAuth.js v5 beta |
-| CI/CD | GitHub Actions |
-| Deployment | Vercel |
+| Layer      | Technology                                    |
+| ---------- | --------------------------------------------- |
+| Framework  | Next.js 16.1.7 App Router + TypeScript strict |
+| Styling    | Tailwind CSS v4                               |
+| Animations | Framer Motion                                 |
+| 3D         | React Three Fiber + Drei                      |
+| Database   | Neon Postgres                                |
+| Media/CDN  | Cloudflare R2                                 |
+| Auth       | NextAuth.js v5 beta                           |
+| CI/CD      | GitHub Actions                                |
+| Deployment | Vercel                                        |
 
 ## Features
 
@@ -157,6 +157,7 @@ vegavath-media/
 Access at `/admin` with credentials stored in environment variables.
 
 Features:
+
 - Manage events (create, edit, archive, delete)
 - Manage team members (all tiers)
 - Upload gallery images to R2
@@ -178,3 +179,8 @@ Features:
 - Edge 90+
 - Mobile Safari (iOS 14+)
 - Chrome Mobile (Android)
+
+
+Built with 💖 by Team Vegavath
+
+Based on a custom License. Please check license file on permissions.
