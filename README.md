@@ -180,6 +180,7 @@ Features:
 - Mobile Safari (iOS 14+)
 - Chrome Mobile (Android)
 
+---
 
 Built with 💖 by Team Vegavath
 
