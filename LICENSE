@@ -1,0 +1,19 @@
+Team Vegavath Custom Educational License (Derived from MIT)
+Copyright (c) 2026 Team Vegavath
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to view, learn from, and fork the Software for personal and educational purposes, subject to the following strict conditions:
+
+1. NON-COMMERCIAL & NON-COMPETITIVE USE: 
+The Software may not be used, hosted, or distributed for any commercial purpose. Furthermore, the codebase may not be deployed as a competing website, template, or platform for another organization, university club, or entity without explicit written permission from Team Vegavath core administration.
+
+2. ASSET PROTECTION: 
+While the underlying logic and code structure are open for educational review, the following proprietary assets are strictly protected and may NOT be reused, extracted, distributed, or modified under any circumstances:
+- Team Vegavath branding, trademarks, and logos.
+- Proprietary 3D models (including but not limited to `vegavath-gokart.glb`).
+- Team member portraits, crew data, and event gallery photographs.
+- Organization-specific website copywriting and mission statements.
+
+3. ATTRIBUTION: 
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software's source code.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
